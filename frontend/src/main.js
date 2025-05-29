@@ -6,10 +6,11 @@ import router from './router'
 
 /* UI Component */
 import PrimeVue from 'primevue/config';
-import 'primevue/resources/themes/lara-light-blue/theme.css';  // ✅ 테마 CSS
-import 'primevue/resources/primevue.min.css';           // ✅ PrimeVue 컴포넌트 기본 CSS
-import 'primeicons/primeicons.css';                      // ✅ 아이콘 CSS
-import 'primeflex/primeflex.css';                        // ✅ 유틸리티 클래스
+
+import 'primeflex/primeflex.css';                        // ✅ PrimeFlex 유틸리티
+import 'primevue/resources/themes/lara-light-blue/theme.css';  // ✅ PrimeVue 테마
+import 'primevue/resources/primevue.min.css';           // ✅ PrimeVue 기본 CSS
+import 'primeicons/primeicons.css';       
 /* */
 
 /* Button Component */
@@ -17,7 +18,9 @@ import Button from 'primevue/button';
 
 const app = createApp(App) // #App.vue를 기반으로 Vue 애플리케이션 인스턴스 생성
 
-app.use(PrimeVue, { unstyled: true });
+// app.use(PrimeVue, { unstyled: true });
+app.use(PrimeVue);
+
 app.use(createPinia())
 app.use(router)
 

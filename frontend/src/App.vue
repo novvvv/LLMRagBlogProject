@@ -1,26 +1,14 @@
-<template>
-    <header>
-        <div class="wrapper">
-            메롱
-            <BaseButton>Button</BaseButton>
-
-
-            <nav>
-                <RouterLink to="/">Home</RouterLink>
-                <RouterLink to="/about">About</RouterLink>
-            </nav>
-        </div>
-    </header>
-  
-</template>
-
-<script>
-
-// import { RouterLink, RouterView } from 'vue-router'
-
-export default {
-
-}
+<script setup>
+    import { RouterView } from 'vue-router'
+    import NavBar from './components/NavBar.vue'
 </script>
 
-<style scoped> </style>
+<template>
+
+  <div style="background-color: var(--blue-50); height: 200px; width: 100%;"> 
+    <NavBar/>
+    <RouterView/>
+  </div>
+</template>
+
+<style></style>
