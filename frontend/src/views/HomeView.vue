@@ -1,11 +1,8 @@
 <template>
-  HomeView
+  <div>HomeView 정상 출력중dd</div>
 </template>
 
-<script>
-export default {
-
-}
+<script setup>
 </script>
 
 <style>
