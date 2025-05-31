@@ -18,19 +18,84 @@
                     viewBox="0 0 24 24" @click="toggleChange">
                     <path
                         d="M4.069 13h-4.069v-2h4.069c-.041.328-.069.661-.069 1s.028.672.069 1zm3.034-7.312l-2.881-2.881-1.414 1.414 2.881 2.881c.411-.529.885-1.003 1.414-1.414zm11.209 1.414l2.881-2.881-1.414-1.414-2.881 2.881c.528.411 1.002.886 1.414 1.414zm-6.312-3.102c.339 0 .672.028 1 .069v-4.069h-2v4.069c.328-.041.661-.069 1-.069zm0 16c-.339 0-.672-.028-1-.069v4.069h2v-4.069c-.328.041-.661.069-1 .069zm7.931-9c.041.328.069.661.069 1s-.028.672-.069 1h4.069v-2h-4.069zm-3.033 7.312l2.88 2.88 1.415-1.414-2.88-2.88c-.412.528-.886 1.002-1.415 1.414zm-11.21-1.415l-2.88 2.88 1.414 1.414 2.88-2.88c-.528-.411-1.003-.885-1.414-1.414zm2.312-4.897c0 2.206 1.794 4 4 4s4-1.794 4-4-1.794-4-4-4-4 1.794-4 4zm10 0c0 3.314-2.686 6-6 6s-6-2.686-6-6 2.686-6 6-6 6 2.686 6 6z" />
-                </svg>
-                
+                </svg>     
+
             </div>
-            <div class="mr-2">
+
+
+            <!-- <div class="mr-2">
                 <RouterLink to="/search" class="router mr-2">Search</RouterLink>
                 <RouterLink to="/archive" class="router mr-2">Archive</RouterLink>
                 <RouterLink to="/tag" class="router">Tag</RouterLink>
+            </div> -->
+
+            <div class="flex gap-4">
+                <RouterLink v-for="path in paths" :key="path.name" :to="path.path" class="router flex align-items-center ">
+                    {{ path.name }}
+                </RouterLink>
             </div>
         </div>
+
+            <div>
+                <a>ID</a>
+                <a>Pw</a>
+                <a>About</a>
+            </div>
+            <div >
+                <a>ID</a>
+                <a>Pw</a>
+                <a>About</a>
+            </div>
+            <div>
+                <a>ID</a>
+                <a>Pw</a>
+                <a>About</a>
+            </div>
+            <br>
+
+            <!-- v-for="변수명 in 반복횟수" :key="변수명" -->
+            <div v-for="ID in 3" :key="ID">ID PW ABOUT<br></div>
+
+            <div v-for= "content in 3" :key = "content"></div>
+
+            <!-- v-for HTML 반복문 2 -->
+            <!-- v-for "변수명 in 객체,배열 이름" :key="변수명" -->
+             <!-- :key를 적어주어야 하는 이유 -->
+              <!-- vue는 DOM 렌더링시 가상 DOM (Virtual DOM)을 사용하는데 :key가 없으면 항목의 순서만 보고 비교하려고 함
+               따라서 :key를 명시해주지 않으면 예상치 못한 렌더링 결과가 생길 수 있어서 적어 주어야 한다.-->
+            <div class="menu">
+                <a v-for="content in contents" :key="content">{{content}}</a>
+            </div>
+
 </template>
 
 <script setup>
+
     import { RouterLink } from 'vue-router' // Template Html a tag 대체
+    import { ref } from 'vue' // 화면에서 동적으로 변화시킬 변수를 ref로 선언 
+
+
+    // 언제 v-for를 사용하면 좋을까? array 혹은 object 데이터 내부 자료를 하나씩 HTML로 출력하고 싶을때
+
+    const count = ref(3);
+
+    // 데이터를 객체 형식으로 정의 
+    const contents = ref([
+        'ID', 'PW', 'About'
+    ])
+
+    const paths = ref([
+        {
+            name: 'Search',
+            path: '/search',
+        }, {
+            name: 'Archive',
+            path: '/archive',
+        }, {
+            name: 'Tag',
+            path: '/tag',
+        }
+    ])
     
     // defineProps -> 부모 컴포넌트로부터 특정 변수 혹은 인자를 받을 때 사용하는 기능
     // NavBar.vue Parent Component : App.vue
@@ -49,12 +114,12 @@
         },
     })
 
-    // 이해x 
     const emit = defineEmits(['toggle-change']) // 자식이 부모 방향으로 값의 변화를 전달
     const toggleChange = () => {
         emit('toggle-change')
         console.log('toggleChange')
     }
+
 </script>
 
 <style scoped>
