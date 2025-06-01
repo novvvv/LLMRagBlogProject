@@ -22,67 +22,39 @@
 
             </div>
 
-
-            <!-- <div class="mr-2">
-                <RouterLink to="/search" class="router mr-2">Search</RouterLink>
-                <RouterLink to="/archive" class="router mr-2">Archive</RouterLink>
-                <RouterLink to="/tag" class="router">Tag</RouterLink>
-            </div> -->
-
+            <!-- class-binding -->
+             <!-- JS v표현식으로 클래스를 조건적으로 적용 가능하다. -->
+              <!-- v-bind:class는 문자열, 객체, 배열을 모두 받을 수 있다. {클래스명: 조건} 형태로 사용해 해당 클래스가 true일때클래스가 적용된다. -->
             <div class="flex gap-4">
                 <RouterLink v-for="path in paths" :key="path.name" :to="path.path" class="router flex align-items-center ">
-                    {{ path.name }}
+                    <div :class="isActive(path.path)">
+                        {{ path.name }}
+                    </div>
                 </RouterLink>
             </div>
         </div>
 
-            <div>
-                <a>ID</a>
-                <a>Pw</a>
-                <a>About</a>
-            </div>
-            <div >
-                <a>ID</a>
-                <a>Pw</a>
-                <a>About</a>
-            </div>
-            <div>
-                <a>ID</a>
-                <a>Pw</a>
-                <a>About</a>
-            </div>
-            <br>
-
-            <!-- v-for="변수명 in 반복횟수" :key="변수명" -->
-            <div v-for="ID in 3" :key="ID">ID PW ABOUT<br></div>
-
-            <div v-for= "content in 3" :key = "content"></div>
-
-            <!-- v-for HTML 반복문 2 -->
-            <!-- v-for "변수명 in 객체,배열 이름" :key="변수명" -->
-             <!-- :key를 적어주어야 하는 이유 -->
-              <!-- vue는 DOM 렌더링시 가상 DOM (Virtual DOM)을 사용하는데 :key가 없으면 항목의 순서만 보고 비교하려고 함
-               따라서 :key를 명시해주지 않으면 예상치 못한 렌더링 결과가 생길 수 있어서 적어 주어야 한다.-->
-            <div class="menu">
-                <a v-for="content in contents" :key="content">{{content}}</a>
-            </div>
 
 </template>
 
 <script setup>
 
-    import { RouterLink } from 'vue-router' // Template Html a tag 대체
+    import { RouterLink, useRoute } from 'vue-router' // Template Html a tag 대체, useRoute : 현재 경로 정보를 획득 
     import { ref } from 'vue' // 화면에서 동적으로 변화시킬 변수를 ref로 선언 
 
+    const route = useRoute()
 
-    // 언제 v-for를 사용하면 좋을까? array 혹은 object 데이터 내부 자료를 하나씩 HTML로 출력하고 싶을때
-
-    const count = ref(3);
-
-    // 데이터를 객체 형식으로 정의 
-    const contents = ref([
-        'ID', 'PW', 'About'
-    ])
+    // 객체를 리턴하는 함수 
+    // isActive - 객체 반환 { '클래스명' : 조건}
+    // 경로가 일치하는 경우에만 border-bottom-1 font-bold 스타일 적용
+    const isActive = (path) => {
+        const isMatch = path === route.path
+        // return { 'border-bottom-1 font-bold': path === route.path, }
+        return {
+            'border-bottom-1': isMatch,
+            'font-bold': isMatch,
+        }
+    };
 
     const paths = ref([
         {
